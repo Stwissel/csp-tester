@@ -2,16 +2,19 @@
 package com.notessensei.csptester;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerRequest;
+import io.vertx.core.json.JsonArray;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -43,6 +46,8 @@ public class MainVerticle extends AbstractVerticle {
 
         router.route("/csp").handler(staticCSP);
         router.route("/csp/*").handler(staticCSP);
+        router.route("/pages").handler(this::handlerPages);
+        router.route("/policies").handler(this::handlerPolicies);
 
         vertx.createHttpServer().requestHandler(router)
                 .listen(port)
@@ -62,6 +67,31 @@ public class MainVerticle extends AbstractVerticle {
         this.getCsp(cspName)
                 .ifPresent(csp -> ctx.response().putHeader("Content-Security-Policy", csp));
         ctx.next();
+    }
+
+    void handlerPages(final RoutingContext ctx) {
+        final JsonArray result = new JsonArray();
+        Stream.of(new File("src/main/resources/webroot").listFiles())
+                .filter(file -> !file.isDirectory())
+                .map(File::getName)
+                .filter(name -> name.endsWith(".html"))
+                .forEach(result::add);
+        ctx.response()
+                .putHeader("content-type", "application/json")
+                .end(result.toBuffer());
+    }
+
+    void handlerPolicies(final RoutingContext ctx) {
+        final JsonArray result = new JsonArray();
+        Stream.of(new File("src/main/resources/csp").listFiles())
+                .filter(file -> !file.isDirectory())
+                .map(File::getName)
+                .filter(name -> name.endsWith(".txt"))
+                .map(name -> name.replace(".txt", ""))
+                .forEach(result::add);
+        ctx.response()
+                .putHeader("content-type", "application/json")
+                .end(result.toBuffer());
     }
 
     private Optional<String> getCsp(String cspName) {

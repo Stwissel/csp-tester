@@ -1,0 +1,36 @@
+html {
+  font-family: 'Jetbrains Mono', Roboto, 'Segoe UI', Tahoma, Geneva, Verdana,
+    sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  font-family: 'Jetbrains Mono', Roboto, 'Segoe UI', Tahoma, Geneva, Verdana,
+    sans-serif;
+  background: white;
+}
+
+#pages {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.policy {
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 10px;
+  flex: 240px;
+  max-width: 240px;
+  max-height: 280px;
+  overflow: auto;
+  word-break: break-all;
+  border-radius: 8px;
+  border: 2px solid gray;
+  background-color: #eeeeff;
+}
