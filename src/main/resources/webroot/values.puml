@@ -1,20 +1,25 @@
 @startwbs CSP-Values
-*[#FFDDFF] values
+*[#FFDDFF] [[https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/Sources#sources values]]
 **[#66FFFF] save
 *** none
 *** self
 *** stric-dynamic
 *** report-sample
 **[#pink] unsave
-*** unsave-inline
+*** [[https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src#unsafe_inline_script unsave-inline]]
 *** unsafe-eval
 *** unsafe-hashes
 *** unsafe-allow-redirects  <:test_tube:>
-**[#66FF66] Hosts
+**[#66FF66] [[https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL Hosts]]
 *** fully qualified\n(incl path)
 *** wild cards
 *** ../ for directories
-*** scheme (https: data:)
 *** nonce-*
 *** sha*-*
+** scheme
+*** https:
+*** [[https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs data:]]
+*** [[https://developer.mozilla.org/en-US/docs/Web/API/Blob blob:]]
+*** [[https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API mediastream:]]
+*** [[https://developer.mozilla.org/en-US/docs/Web/API/FileSystem filesystem:]]
 @endwbs
