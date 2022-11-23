@@ -14,6 +14,7 @@ function bootstrap() {
     .then((response) => response.json())
     .then((data) => {
       const insertPoint = document.querySelector('#pages');
+      data.unshift('nocsp'); // CSP free display
       data.forEach((d) => {
         const div = document.createElement('div');
         div.className = 'policy';

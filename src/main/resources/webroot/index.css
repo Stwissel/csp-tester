@@ -7,6 +7,14 @@ h1 {
   text-align: center;
 }
 
+.filelist {
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
 body {
   margin: 0;
   font-family: 'Jetbrains Mono', Roboto, 'Segoe UI', Tahoma, Geneva, Verdana,
@@ -20,14 +28,25 @@ body {
   justify-content: center;
 }
 
+div.pictures {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+img.pictures {
+  flex: 300px;
+  max-width: 45%;
+}
+
 .policy {
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
   margin: 10px;
-  flex: 240px;
-  max-width: 240px;
-  max-height: 280px;
+  flex: 300px;
+  max-width: 300px;
+  max-height: 600px;
   overflow: auto;
   word-break: break-all;
   border-radius: 8px;

@@ -1,0 +1,5 @@
+default-src 'self';
+form-action 'self';
+frame-ancestors 'self';
+report-to csp-reports;
+report-uri /cspreport

@@ -13,6 +13,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.web.Router;
@@ -48,6 +49,7 @@ public class MainVerticle extends AbstractVerticle {
         router.route("/csp/*").handler(staticCSP);
         router.route("/pages").handler(this::handlerPages);
         router.route("/policies").handler(this::handlerPolicies);
+        router.route(HttpMethod.POST, "/cspreport").handler(this::handlerReport);
 
         vertx.createHttpServer().requestHandler(router)
                 .listen(port)
@@ -59,13 +61,21 @@ public class MainVerticle extends AbstractVerticle {
 
     }
 
+    void handlerReport(final RoutingContext ctx) {
+        System.out.println(ctx.body().asJsonObject().encodePrettily());
+        ctx.response().setStatusCode(201).end();
+    }
+
     void handleCSP(final RoutingContext ctx) {
         HttpServerRequest request = ctx.request();
         System.out.println(request.absoluteURI());
         MultiMap params = request.params();
         final String cspName = params.contains("csp") ? params.get("csp") : "default";
         this.getCsp(cspName)
-                .ifPresent(csp -> ctx.response().putHeader("Content-Security-Policy", csp));
+                .ifPresent(csp -> {
+                    ctx.response().putHeader("Reporting-Endpoints", "csp-reports=\"/cspreports\"");
+                    ctx.response().putHeader("Content-Security-Policy", csp);
+                });
         ctx.next();
     }
 
@@ -95,8 +105,14 @@ public class MainVerticle extends AbstractVerticle {
     }
 
     private Optional<String> getCsp(String cspName) {
+
+        if ("nocsp".equalsIgnoreCase(cspName)) {
+            return Optional.empty();
+        }
+
         final String lookupName = String.format("/csp/%s.txt", cspName);
         InputStream in = this.getClass().getResourceAsStream(lookupName);
+
         if (in == null) {
             in = this.getClass().getResourceAsStream("/csp/default-csp.txt");
         }

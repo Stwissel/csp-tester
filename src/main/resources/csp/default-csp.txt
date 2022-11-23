@@ -1,1 +1,3 @@
-default-src: self;
+default-src 'self';
+form-action 'self';
+frame-ancestors 'self';

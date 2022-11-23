@@ -1,0 +1,3 @@
+default-src 'none';
+form-action 'none';
+frame-ancestors 'none';

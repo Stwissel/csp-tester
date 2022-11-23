@@ -1,0 +1,20 @@
+@startwbs CSP-Values
+*[#FFDDFF] values
+**[#66FFFF] save
+*** none
+*** self
+*** stric-dynamic
+*** report-sample
+**[#pink] unsave
+*** unsave-inline
+*** unsafe-eval
+*** unsafe-hashes
+*** unsafe-allow-redirects  <:test_tube:>
+**[#66FF66] Hosts
+*** fully qualified\n(incl path)
+*** wild cards
+*** ../ for directories
+*** scheme (https: data:)
+*** nonce-*
+*** sha*-*
+@endwbs
