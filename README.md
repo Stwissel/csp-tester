@@ -12,11 +12,11 @@ Pull-Requests (incl. new sample files or policy files) are welcome
 
 Details on CSP can be found [at the Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
 
-<object type="image/svg+xml" class="pictures" data="CSP-Directives.svg">
-  List of directives
+![Directives](src/main/resources/webroot/CSP-Directives.png)
+List of directives
 </object>
-<object type="image/svg+xml" class="pictures" data="CSP-Values.svg">
-  Content security values
+![Values](src/main/resources/webroot/CSP-Values.png)
+Content security values
 </object>
 
 ## Running the project
