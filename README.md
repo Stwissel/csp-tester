@@ -18,3 +18,12 @@ Details on CSP can be found [at the Mozilla Developer Network](https://developer
 <object type="image/svg+xml" class="pictures" data="CSP-Values.svg">
   Content security values
 </object>
+
+## Running the project
+
+- you need [maven](https://maven.apache.org) installed
+- clone the repository
+- open folder
+- run `mvn clean compile exec:java
+
+## Not designed to be deployed
